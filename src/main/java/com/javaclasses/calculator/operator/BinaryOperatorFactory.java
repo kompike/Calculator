@@ -13,6 +13,7 @@ public class BinaryOperatorFactory {
             new HashMap<String, BinaryOperator>(){{
 
                 put("+", new Plus());
+                put("-", new Minus());
             }};
 
     /**
