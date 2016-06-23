@@ -11,12 +11,29 @@ public class ClosingBracketParser implements Parser {
 
     @Override
     public EvaluationContext parse(InputContext inputContext, OutputContext outputContext) {
-        return new EvaluationContext() {
-            @Override
-            public void execute() {
 
-            }
-        };
+        final String expression = inputContext.getRemainingExpression();
+
+        if (expression.startsWith(")")) {
+
+            inputContext.incrementPosition(1);
+
+            return new EvaluationContext() {
+                @Override
+                public void execute() {
+
+                    outputContext.getEvaluationStack().popAllOperators();
+
+                    final double result = outputContext.getEvaluationStack().popResult();
+
+                    outputContext.leaveCurrentEvaluationStack();
+
+                    outputContext.getEvaluationStack().getOperandStack().push(result);
+                }
+            };
+        }
+
+        return null;
     }
 
 }
