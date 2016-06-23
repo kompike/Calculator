@@ -50,7 +50,8 @@ public class NumberParser implements Parser {
         return new EvaluationContext() {
             @Override
             public void execute() {
-                outputContext.addOperand(Double.valueOf(result));
+                outputContext.getEvaluationStack()
+                        .addOperand(Double.valueOf(result));
             }
         };
     }

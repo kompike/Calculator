@@ -32,7 +32,8 @@ public class BinaryOperatorParser implements Parser {
                 return new EvaluationContext() {
                     @Override
                     public void execute() {
-                        outputContext.addOperator(operator);
+                        outputContext.getEvaluationStack()
+                                .addOperator(operator);
                     }
                 };
             }
