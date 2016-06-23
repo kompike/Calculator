@@ -20,4 +20,10 @@ public class BinaryOperatorTest {
         Assert.assertEquals("Evaluated result does not equals expected number.",
                 28d, calculator.evaluate("42-14"), 0.0001d );
     }
+
+    @Test
+    public void testMultiplyOperator() throws EvaluationException {
+        Assert.assertEquals("Evaluated result does not equals expected number.",
+                28d, calculator.evaluate("7*4"), 0.0001d );
+    }
 }
