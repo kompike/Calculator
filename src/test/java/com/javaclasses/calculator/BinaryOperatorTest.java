@@ -44,4 +44,16 @@ public class BinaryOperatorTest {
         Assert.assertEquals("Evaluated result does not equals expected number.",
                 18d, calculator.evaluate("2+2^3*2"), 0.0001d );
     }
+
+    @Test
+    public void testSingleBrackets() throws EvaluationException {
+        Assert.assertEquals("Evaluated result does not equals expected number.",
+                8d, calculator.evaluate("2*(3+1)"), 0.0001d );
+    }
+
+    @Test
+    public void testNestedBrackets() throws EvaluationException {
+        Assert.assertEquals("Evaluated result does not equals expected number.",
+                33d, calculator.evaluate("2^(3*(4/(5-3)-1)+2)+1"), 0.0001d );
+    }
 }

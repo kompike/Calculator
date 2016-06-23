@@ -62,7 +62,7 @@ public class MathExpressionOutputContext implements OutputContext {
                         lastOperator.getClass().getSimpleName());
             }
 
-            if (lastOperator.compareTo(operator) == 1) {
+            if (lastOperator.compareTo(operator) > 0) {
 
                 popOperator();
 
