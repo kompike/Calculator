@@ -3,6 +3,7 @@ package com.javaclasses.calculator.finitestatemachine;
 import com.javaclasses.calculator.context.EvaluationContext;
 import com.javaclasses.calculator.context.InputContext;
 import com.javaclasses.calculator.context.OutputContext;
+import com.javaclasses.calculator.parser.FinishParser;
 import com.javaclasses.calculator.parser.Parser;
 
 import java.util.HashMap;
@@ -20,6 +21,7 @@ public class StateRecognizer {
      */
     private final Map<State, Parser> stateParsers = new HashMap<State, Parser>(){{
 
+        put(State.FINISH, new FinishParser());
     }};
 
     /**

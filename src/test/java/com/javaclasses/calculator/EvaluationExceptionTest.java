@@ -14,7 +14,7 @@ public class EvaluationExceptionTest {
 
         try {
             calculator.evaluate("");
-            Assert.fail("");
+            Assert.fail("EvaluationException was not thrown");
         } catch (EvaluationException e) {
             Assert.assertEquals("Caught exception message does not equals expected.",
                     "Can not execute expression after position 0", e.getMessage());

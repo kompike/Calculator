@@ -5,4 +5,10 @@ package com.javaclasses.calculator.context;
  * output data
  */
 public interface OutputContext {
+
+    /**
+     * Pop the last element from stack of operands
+     * @return Result of expression
+     */
+    double popResult();
 }

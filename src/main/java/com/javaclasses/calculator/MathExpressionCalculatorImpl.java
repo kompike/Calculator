@@ -1,6 +1,8 @@
 package com.javaclasses.calculator;
 
 import com.javaclasses.calculator.context.InputContext;
+import com.javaclasses.calculator.context.MathExpressionInputContext;
+import com.javaclasses.calculator.context.MathExpressionOutputContext;
 import com.javaclasses.calculator.context.OutputContext;
 import com.javaclasses.calculator.exception.EvaluationException;
 import com.javaclasses.calculator.finitestatemachine.AbstractFiniteStateMachine;
@@ -14,7 +16,16 @@ public class MathExpressionCalculatorImpl extends AbstractFiniteStateMachine
 
     @Override
     public double evaluate(String expression) throws EvaluationException {
-        return 0;
+
+        final InputContext inputContext =
+                new MathExpressionInputContext(expression);
+
+        final OutputContext outputContext =
+                new MathExpressionOutputContext();
+
+        run(inputContext, outputContext);
+
+        return outputContext.popResult();
     }
 
     @Override
