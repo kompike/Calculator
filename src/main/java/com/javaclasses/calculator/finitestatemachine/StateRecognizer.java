@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.javaclasses.calculator.finitestatemachine.State.BINARY_OPERATOR;
+import static com.javaclasses.calculator.finitestatemachine.State.FINISH;
+import static com.javaclasses.calculator.finitestatemachine.State.NUMBER;
 
 /**
  * Indicates whether or not given state is accepted
@@ -25,9 +27,9 @@ public class StateRecognizer {
      */
     private final Map<State, Parser> stateParsers = new HashMap<State, Parser>(){{
 
-        put(State.NUMBER, new NumberParser());
+        put(NUMBER, new NumberParser());
         put(BINARY_OPERATOR, new BinaryOperatorParser());
-        put(State.FINISH, new FinishParser());
+        put(FINISH, new FinishParser());
     }};
 
     /**
