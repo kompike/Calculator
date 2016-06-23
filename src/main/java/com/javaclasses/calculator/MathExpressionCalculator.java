@@ -1,5 +1,7 @@
 package com.javaclasses.calculator;
 
+import com.javaclasses.calculator.exception.EvaluationException;
+
 /**
  * Basic interface for math expressions calculation
  */
@@ -12,5 +14,5 @@ public interface MathExpressionCalculator {
      * @return result of given expression
      */
 
-    double evaluate(String expression);
+    double evaluate(String expression) throws EvaluationException;
 }
