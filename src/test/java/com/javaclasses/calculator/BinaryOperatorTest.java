@@ -38,4 +38,10 @@ public class BinaryOperatorTest {
         Assert.assertEquals("Evaluated result does not equals expected number.",
                 64d, calculator.evaluate("4^3"), 0.0001d );
     }
+
+    @Test
+    public void testOperatorPriority() throws EvaluationException {
+        Assert.assertEquals("Evaluated result does not equals expected number.",
+                18d, calculator.evaluate("2+2^3*2"), 0.0001d );
+    }
 }

@@ -42,12 +42,37 @@ public class MathExpressionOutputContext implements OutputContext {
         operandStack.push(operand);
 
         if (log.isDebugEnabled()) {
-            log.debug("Operand succesfully added to the stack: " + operand);
+            log.debug("Operand successfully added to the stack: " + operand);
         }
     }
 
     @Override
     public void addOperator(BinaryOperator operator) {
+
+        if (log.isDebugEnabled()) {
+            log.debug("Checking is operatorStack is empty: " + operatorStack.isEmpty());
+        }
+
+        if (!operatorStack.isEmpty()) {
+
+            final BinaryOperator lastOperator = operatorStack.peek();
+
+            if (log.isDebugEnabled()) {
+                log.debug("Last operator returned from the stack: " +
+                        lastOperator.getClass().getSimpleName());
+            }
+
+            if (lastOperator.compareTo(operator) == 1) {
+
+                popOperator();
+
+            }
+        }
+
+        if (log.isDebugEnabled()) {
+            log.debug("Operator added to the stack: " + operator.getClass().getSimpleName());
+        }
+
         operatorStack.push(operator);
     }
 
@@ -55,12 +80,35 @@ public class MathExpressionOutputContext implements OutputContext {
     public void popAllOperators() {
 
         while (!operatorStack.isEmpty()) {
-            final BinaryOperator operator = operatorStack.pop();
 
-            final double rightOperand = operandStack.pop();
-            final double leftOperand = operandStack.pop();
+            popOperator();
+        }
+    }
 
-            operandStack.push(operator.execute(leftOperand, rightOperand));
+    private void popOperator() {
+
+        final BinaryOperator operator = operatorStack.pop();
+
+        if (log.isDebugEnabled()) {
+            log.debug("Operator returned from the stack: " + operator.getClass().getSimpleName());
+        }
+
+        final double rightOperand = operandStack.pop();
+
+        if (log.isDebugEnabled()) {
+            log.debug("Right operand returned from the stack: " + rightOperand);
+        }
+
+        final double leftOperand = operandStack.pop();
+
+        if (log.isDebugEnabled()) {
+            log.debug("Left operand returned from the stack: " + leftOperand);
+        }
+
+        operandStack.push(operator.execute(leftOperand, rightOperand));
+
+        if (log.isDebugEnabled()) {
+            log.debug("Operand executed and added to the stack: " + operandStack.peek());
         }
     }
 
