@@ -44,13 +44,13 @@ public abstract class AbstractFiniteStateMachine {
 
             final State nextState = moveToNextState(state, inputContext, outputContext);
 
-            if (log.isInfoEnabled()) {
-                log.info("Current state is " + nextState.toString());
-            }
-
             if (nextState == null) {
                 deadlock(inputContext, outputContext);
                 break;
+            }
+
+            if (log.isInfoEnabled()) {
+                log.info("Current state is " + nextState.toString());
             }
 
             state = nextState;

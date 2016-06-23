@@ -11,4 +11,10 @@ public interface OutputContext {
      * @return Result of expression
      */
     double popResult();
+
+    /**
+     * Add new operand to output context
+     * @param operand Added operand
+     */
+    void addOperand(Double operand);
 }

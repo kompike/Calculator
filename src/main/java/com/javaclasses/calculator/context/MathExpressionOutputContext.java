@@ -21,4 +21,9 @@ public class MathExpressionOutputContext implements OutputContext {
         throw new IllegalStateException("Operands stack is empty.");
     }
 
+    @Override
+    public void addOperand(Double operand) {
+        operandStack.push(operand);
+    }
+
 }
