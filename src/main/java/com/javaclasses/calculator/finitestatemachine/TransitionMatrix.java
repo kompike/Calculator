@@ -5,9 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import static com.javaclasses.calculator.finitestatemachine.State.FINISH;
-import static com.javaclasses.calculator.finitestatemachine.State.NUMBER;
-import static com.javaclasses.calculator.finitestatemachine.State.START;
+import static com.javaclasses.calculator.finitestatemachine.State.*;
 
 /**
  * Representation of finite-state machine
@@ -22,7 +20,8 @@ public class TransitionMatrix {
             new HashMap<State, Set<State>>(){{
 
                 put(START, EnumSet.of(NUMBER));
-                put(NUMBER, EnumSet.of(FINISH));
+                put(NUMBER, EnumSet.of(BINARY_OPERATOR, FINISH));
+                put(BINARY_OPERATOR, EnumSet.of(NUMBER));
                 put(FINISH, EnumSet.noneOf(State.class));
 
             }};
