@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static com.javaclasses.calculator.finitestatemachine.State.FINISH;
+import static com.javaclasses.calculator.finitestatemachine.State.NUMBER;
 import static com.javaclasses.calculator.finitestatemachine.State.START;
 
 /**
@@ -20,7 +21,8 @@ public class TransitionMatrix {
     private final Map<State, Set<State>> possibleTransitions =
             new HashMap<State, Set<State>>(){{
 
-                put(START, EnumSet.of(FINISH));
+                put(START, EnumSet.of(NUMBER));
+                put(NUMBER, EnumSet.of(FINISH));
                 put(FINISH, EnumSet.noneOf(State.class));
 
             }};

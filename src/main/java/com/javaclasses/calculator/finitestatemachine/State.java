@@ -6,5 +6,6 @@ package com.javaclasses.calculator.finitestatemachine;
 public enum State {
 
     START,
+    NUMBER,
     FINISH
 }
