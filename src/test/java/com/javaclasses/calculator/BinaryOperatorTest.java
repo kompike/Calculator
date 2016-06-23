@@ -14,4 +14,10 @@ public class BinaryOperatorTest {
         Assert.assertEquals("Evaluated result does not equals expected number.",
                 28d, calculator.evaluate("10+18"), 0.0001d );
     }
+
+    @Test
+    public void testMinusOperator() throws EvaluationException {
+        Assert.assertEquals("Evaluated result does not equals expected number.",
+                28d, calculator.evaluate("42-14"), 0.0001d );
+    }
 }
