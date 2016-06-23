@@ -16,6 +16,8 @@ public class BinaryOperatorFactory {
                 put("-", new Minus());
                 put("*", new Multiply());
                 put("/", new Divide());
+                put("^", new Power());
+
             }};
 
     /**
