@@ -3,17 +3,12 @@ package com.javaclasses.calculator.finitestatemachine;
 import com.javaclasses.calculator.context.EvaluationContext;
 import com.javaclasses.calculator.context.InputContext;
 import com.javaclasses.calculator.context.OutputContext;
-import com.javaclasses.calculator.parser.BinaryOperatorParser;
-import com.javaclasses.calculator.parser.FinishParser;
-import com.javaclasses.calculator.parser.NumberParser;
-import com.javaclasses.calculator.parser.Parser;
+import com.javaclasses.calculator.parser.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.javaclasses.calculator.finitestatemachine.State.BINARY_OPERATOR;
-import static com.javaclasses.calculator.finitestatemachine.State.FINISH;
-import static com.javaclasses.calculator.finitestatemachine.State.NUMBER;
+import static com.javaclasses.calculator.finitestatemachine.State.*;
 
 /**
  * Indicates whether or not given state is accepted
@@ -29,6 +24,8 @@ public class StateRecognizer {
 
         put(NUMBER, new NumberParser());
         put(BINARY_OPERATOR, new BinaryOperatorParser());
+        put(OPENING_BRACKET, new OpeningBracketParser());
+        put(CLOSING_BRACKET, new ClosingBracketParser());
         put(FINISH, new FinishParser());
     }};
 
