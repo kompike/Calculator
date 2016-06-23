@@ -1,5 +1,8 @@
 package com.javaclasses.calculator.context;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 
@@ -9,13 +12,24 @@ import java.util.Deque;
  */
 public class MathExpressionOutputContext implements OutputContext {
 
+    private final Logger log = LoggerFactory.getLogger(MathExpressionOutputContext.class);
+
     private final Deque<Double> operandStack = new ArrayDeque<>();
 
     @Override
     public double popResult() {
 
         if (operandStack.size() == 1) {
+
+            if (log.isDebugEnabled()) {
+                log.debug("Expression result equals: " + operandStack.peek());
+            }
+
             return operandStack.pop();
+        }
+
+        if (log.isErrorEnabled()) {
+            log.error("Operands stack is empty.");
         }
 
         throw new IllegalStateException("Operands stack is empty.");
@@ -24,6 +38,10 @@ public class MathExpressionOutputContext implements OutputContext {
     @Override
     public void addOperand(Double operand) {
         operandStack.push(operand);
+
+        if (log.isDebugEnabled()) {
+            log.debug("Operand succesfully added to the stack: " + operand);
+        }
     }
 
 }

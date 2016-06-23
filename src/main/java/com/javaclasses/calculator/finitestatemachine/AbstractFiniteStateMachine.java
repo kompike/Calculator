@@ -45,6 +45,12 @@ public abstract class AbstractFiniteStateMachine {
             final State nextState = moveToNextState(state, inputContext, outputContext);
 
             if (nextState == null) {
+
+                if (log.isWarnEnabled()) {
+                    log.warn("Can not find possible next state for " +
+                            state.toString());
+                }
+
                 deadlock(inputContext, outputContext);
                 break;
             }
