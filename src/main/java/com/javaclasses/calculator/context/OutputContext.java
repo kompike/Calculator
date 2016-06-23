@@ -25,4 +25,9 @@ public interface OutputContext {
      * @param operator Added operator
      */
     void addOperator(BinaryOperator operator);
+
+    /**
+     * Pops remained operators from operator's stack
+     */
+    void popAllOperators();
 }

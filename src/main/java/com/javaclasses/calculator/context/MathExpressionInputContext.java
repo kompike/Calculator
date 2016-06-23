@@ -27,4 +27,9 @@ public class MathExpressionInputContext implements InputContext {
     public String getRemainingExpression() {
         return expression.substring(position);
     }
+
+    @Override
+    public boolean hasMoreToParse() {
+        return position < expression.length();
+    }
 }

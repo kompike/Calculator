@@ -24,5 +24,5 @@ public abstract class BinaryOperator implements Comparable<BinaryOperator>{
      * @param rightOperand Second operand of current binary operator
      * @return Result of operator execution
      */
-    abstract double execute(double leftOperand, double rightOperand);
+    public abstract double execute(double leftOperand, double rightOperand);
 }

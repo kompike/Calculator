@@ -15,7 +15,11 @@ public class FinishParser implements Parser{
         return new EvaluationContext() {
             @Override
             public void execute() {
-                // TODO
+                if (!inputContext.hasMoreToParse()) {
+                    outputContext.popAllOperators();
+                } else {
+                    throw new IllegalStateException("Input expression still has elements to parse");
+                }
             }
         };
     }

@@ -51,4 +51,17 @@ public class MathExpressionOutputContext implements OutputContext {
         operatorStack.push(operator);
     }
 
+    @Override
+    public void popAllOperators() {
+
+        while (!operatorStack.isEmpty()) {
+            final BinaryOperator operator = operatorStack.pop();
+
+            final double rightOperand = operandStack.pop();
+            final double leftOperand = operandStack.pop();
+
+            operandStack.push(operator.execute(leftOperand, rightOperand));
+        }
+    }
+
 }

@@ -23,4 +23,10 @@ public interface InputContext {
      * @return Remaining expression
      */
     String getRemainingExpression();
+
+    /**
+     * Check if there is input data to parse
+     * @return true if input data is finished
+     */
+    boolean hasMoreToParse();
 }
