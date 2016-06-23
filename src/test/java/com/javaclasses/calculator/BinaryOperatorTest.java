@@ -26,4 +26,10 @@ public class BinaryOperatorTest {
         Assert.assertEquals("Evaluated result does not equals expected number.",
                 28d, calculator.evaluate("7*4"), 0.0001d );
     }
+
+    @Test
+    public void testDivideOperator() throws EvaluationException {
+        Assert.assertEquals("Evaluated result does not equals expected number.",
+                28.5d, calculator.evaluate("57/2"), 0.0001d );
+    }
 }
