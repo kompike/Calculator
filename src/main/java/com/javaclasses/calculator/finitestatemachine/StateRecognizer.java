@@ -27,6 +27,7 @@ public class StateRecognizer {
         put(OPENING_BRACKET, new OpeningBracketParser());
         put(CLOSING_BRACKET, new ClosingBracketParser());
         put(FUNCTION, new FunctionParser());
+        put(ARGUMENTS_SEPARATOR, new ArgumentsSeparatorParser());
         put(FINISH, new FinishParser());
     }};
 

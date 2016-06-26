@@ -25,6 +25,7 @@ public class TransitionMatrix {
                 put(OPENING_BRACKET, EnumSet.of(NUMBER, OPENING_BRACKET, FUNCTION));
                 put(CLOSING_BRACKET, EnumSet.of(BINARY_OPERATOR, OPENING_BRACKET, FINISH));
                 put(FUNCTION, EnumSet.of(OPENING_BRACKET));
+                put(ARGUMENTS_SEPARATOR, EnumSet.of(NUMBER, OPENING_BRACKET, FUNCTION));
                 put(FINISH, EnumSet.noneOf(State.class));
 
             }};
