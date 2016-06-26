@@ -12,5 +12,6 @@ public enum State {
     CLOSING_BRACKET,
     FUNCTION,
     ARGUMENTS_SEPARATOR,
+    UNARY_OPERATOR,
     FINISH
 }

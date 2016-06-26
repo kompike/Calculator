@@ -62,4 +62,10 @@ public class BinaryOperatorTest {
         Assert.assertEquals("Evaluated result does not equals expected number.",
                 22d, calculator.evaluate("2 * 3 +  2 ^4"), 0.0001d );
     }
+
+    @Test
+    public void testUnaryOperator() throws EvaluationException {
+        Assert.assertEquals("Evaluated result does not equals expected number.",
+                -8d, calculator.evaluate("-(5+3)"), 0.0001d );
+    }
 }
