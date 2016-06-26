@@ -25,7 +25,7 @@ public class MathExpressionCalculatorImpl extends AbstractFiniteStateMachine
 
         run(inputContext, outputContext);
 
-        return outputContext.getResult();
+        return outputContext.popResult();
     }
 
     @Override

@@ -24,7 +24,7 @@ public class MathExpressionOutputContext implements OutputContext {
     }
 
     @Override
-    public double getResult() {
+    public double popResult() {
         return getEvaluationStack().popResult();
     }
 }

@@ -5,7 +5,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
+import java.util.List;
 
 /**
  * Operates operand and operator stacks for keeping
@@ -36,23 +38,19 @@ public class EvaluationStack {
         return operandStack;
     }
 
-    public Deque<BinaryOperator> getOperatorStack() {
-        return operatorStack;
-    }
-
     /**
      * Pop the last element from stack of operands
      * @return Result of expression
      */
     public double popResult() {
 
-        if (getOperandStack().size() == 1) {
+        if (operandStack.size() == 1) {
 
             if (log.isDebugEnabled()) {
-                log.debug("Expression result equals: " + getOperandStack().peek());
+                log.debug("Expression result equals: " + operandStack.peek());
             }
 
-            return getOperandStack().pop();
+            return operandStack.pop();
         }
 
         if (log.isErrorEnabled()) {
@@ -67,7 +65,7 @@ public class EvaluationStack {
      * @param operand Added operand
      */
     public void addOperand(Double operand) {
-        getOperandStack().push(operand);
+        operandStack.push(operand);
 
         if (log.isDebugEnabled()) {
             log.debug("Operand successfully added to the stack: " + operand);
@@ -81,12 +79,12 @@ public class EvaluationStack {
     public void addOperator(BinaryOperator operator) {
 
         if (log.isDebugEnabled()) {
-            log.debug("Checking is operatorStack is empty: " + getOperatorStack().isEmpty());
+            log.debug("Checking is operatorStack is empty: " + operatorStack.isEmpty());
         }
 
-        if (!getOperatorStack().isEmpty()) {
+        if (!operatorStack.isEmpty()) {
 
-            final BinaryOperator lastOperator = getOperatorStack().peek();
+            final BinaryOperator lastOperator = operatorStack.peek();
 
             if (log.isDebugEnabled()) {
                 log.debug("Last operator returned from the stack: " +
@@ -104,7 +102,7 @@ public class EvaluationStack {
             log.debug("Operator added to the stack: " + operator.getClass().getSimpleName());
         }
 
-        getOperatorStack().push(operator);
+        operatorStack.push(operator);
     }
 
     /**
@@ -112,36 +110,52 @@ public class EvaluationStack {
      */
     public void popAllOperators() {
 
-        while (!getOperatorStack().isEmpty()) {
+        while (!operatorStack.isEmpty()) {
 
             popOperator();
         }
     }
 
+    /**
+     * Pops remained operands from operator's stack
+     * to the list
+     */
+    public List<Double> popAllOperands() {
+
+        List<Double> operands = new ArrayList<>();
+
+        while (!operandStack.isEmpty()) {
+
+            operands.add(operandStack.pop());
+        }
+
+        return operands;
+    }
+
     private void popOperator() {
 
-        final BinaryOperator operator = getOperatorStack().pop();
+        final BinaryOperator operator = operatorStack.pop();
 
         if (log.isDebugEnabled()) {
             log.debug("Operator returned from the stack: " + operator.getClass().getSimpleName());
         }
 
-        final double rightOperand = getOperandStack().pop();
+        final double rightOperand = operandStack.pop();
 
         if (log.isDebugEnabled()) {
             log.debug("Right operand returned from the stack: " + rightOperand);
         }
 
-        final double leftOperand = getOperandStack().pop();
+        final double leftOperand = operandStack.pop();
 
         if (log.isDebugEnabled()) {
             log.debug("Left operand returned from the stack: " + leftOperand);
         }
 
-        getOperandStack().push(operator.execute(leftOperand, rightOperand));
+        operandStack.push(operator.execute(leftOperand, rightOperand));
 
         if (log.isDebugEnabled()) {
-            log.debug("Operand executed and added to the stack: " + getOperandStack().peek());
+            log.debug("Operand executed and added to the stack: " + operandStack.peek());
         }
     }
 }

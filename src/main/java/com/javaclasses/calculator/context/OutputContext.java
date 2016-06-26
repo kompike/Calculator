@@ -26,5 +26,5 @@ public interface OutputContext {
     /**
      * Returns from current stack to parent stack
      */
-    double getResult();
+    double popResult();
 }
