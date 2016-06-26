@@ -21,7 +21,7 @@ public class BinaryOperatorFactory {
             }};
 
     /**
-     * Get binary operator according to it string representation
+     * Get binary operator according to its string representation
      * @param representation String representation of binary operator
      * @return Binary operator instance
      */
