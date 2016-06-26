@@ -21,17 +21,24 @@ public class EvaluationStack {
     private final Deque<BinaryOperator> operatorStack = new ArrayDeque<>();
 
     private EvaluationStack parent;
+    private ClosureContext context;
 
     public EvaluationStack() {
         parent = null;
+        context = null;
     }
 
-    public EvaluationStack(EvaluationStack parent) {
+    public EvaluationStack(EvaluationStack parent, ClosureContext context) {
         this.parent = parent;
+        this.context = context;
     }
 
     public EvaluationStack getParent() {
         return parent;
+    }
+
+    public ClosureContext getContext() {
+        return context;
     }
 
     public Deque<Double> getOperandStack() {

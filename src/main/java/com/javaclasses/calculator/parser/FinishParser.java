@@ -15,6 +15,7 @@ public class FinishParser implements Parser{
         return new EvaluationContext() {
             @Override
             public void execute() {
+
                 if (!inputContext.hasMoreToParse()) {
                     outputContext.getEvaluationStack()
                             .popAllOperators();
