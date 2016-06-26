@@ -19,11 +19,12 @@ public class TransitionMatrix {
     private final Map<State, Set<State>> possibleTransitions =
             new HashMap<State, Set<State>>(){{
 
-                put(START, EnumSet.of(NUMBER, OPENING_BRACKET));
+                put(START, EnumSet.of(NUMBER, OPENING_BRACKET, FUNCTION));
                 put(NUMBER, EnumSet.of(BINARY_OPERATOR, CLOSING_BRACKET, FINISH));
-                put(BINARY_OPERATOR, EnumSet.of(NUMBER, OPENING_BRACKET));
-                put(OPENING_BRACKET, EnumSet.of(NUMBER, OPENING_BRACKET));
+                put(BINARY_OPERATOR, EnumSet.of(NUMBER, OPENING_BRACKET, FUNCTION));
+                put(OPENING_BRACKET, EnumSet.of(NUMBER, OPENING_BRACKET, FUNCTION));
                 put(CLOSING_BRACKET, EnumSet.of(BINARY_OPERATOR, OPENING_BRACKET, FINISH));
+                put(FUNCTION, EnumSet.of(OPENING_BRACKET));
                 put(FINISH, EnumSet.noneOf(State.class));
 
             }};
