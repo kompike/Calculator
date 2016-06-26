@@ -1,10 +1,15 @@
 package com.javaclasses.calculator.context;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Implementation for {@link OutputContext} interface for
  * math expressions
  */
 public class MathExpressionOutputContext implements OutputContext {
+
+    private final Logger log = LoggerFactory.getLogger(MathExpressionOutputContext.class);
 
     private EvaluationStack evaluationStack = new EvaluationStack();
     private ClosureContext closureContext = null;
@@ -21,6 +26,11 @@ public class MathExpressionOutputContext implements OutputContext {
 
     @Override
     public void setEvaluationStack(EvaluationStack stack, ClosureContext context) {
+
+        if (log.isDebugEnabled()) {
+            log.debug("New evaluation stack created");
+        }
+
         evaluationStack = new EvaluationStack(stack, context);
         this.closureContext = null;
     }
@@ -38,6 +48,10 @@ public class MathExpressionOutputContext implements OutputContext {
             throw new IllegalStateException("Opening bracket missing");
         }
 
+        if (log.isDebugEnabled()) {
+            log.debug("Leaving current evaluation stack...");
+        }
+
         evaluationStack.getClosureContext().closeContext();
 
         final double result = evaluationStack.popResult();
@@ -45,6 +59,10 @@ public class MathExpressionOutputContext implements OutputContext {
         evaluationStack = evaluationStack.getParent();
 
         evaluationStack.getOperandStack().push(result);
+
+        if (log.isDebugEnabled()) {
+            log.debug("Evaluation stack changed");
+        }
     }
 
     @Override

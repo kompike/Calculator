@@ -1,10 +1,15 @@
 package com.javaclasses.calculator.context;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Implementation for {@link InputContext} interface for
  * math expressions
  */
 public class MathExpressionInputContext implements InputContext {
+
+    private final Logger log = LoggerFactory.getLogger(MathExpressionInputContext.class);
 
     private String expression;
     private int position;
@@ -20,6 +25,11 @@ public class MathExpressionInputContext implements InputContext {
 
     @Override
     public void incrementPosition(int value) {
+
+        if (log.isDebugEnabled()) {
+            log.debug("Incrementing position with value: " + value);
+        }
+
         position += value;
     }
 
