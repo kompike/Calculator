@@ -26,4 +26,10 @@ public class FunctionTest {
         Assert.assertEquals("Evaluated result does not equals expected number.",
                 65d, calculator.evaluate("max(65,28,3,17)"), 0.0001d );
     }
+
+    @Test
+    public void testPiFunction() throws EvaluationException {
+        Assert.assertEquals("Evaluated result does not equals expected number.",
+                Math.PI, calculator.evaluate("pi()"), 0.0001d );
+    }
 }
