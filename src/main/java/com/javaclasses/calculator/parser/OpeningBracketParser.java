@@ -27,41 +27,33 @@ public class OpeningBracketParser implements Parser {
 
             inputContext.incrementPosition(1);
 
-            return new EvaluationContext() {
-                @Override
-                public void execute() {
+            return () -> {
 
-                    ClosureContext context = outputContext.getClosureContext();
+                ClosureContext context = outputContext.getClosureContext();
 
-                    if (log.isDebugEnabled()) {
-                        log.debug("ClosureContext is default: " + (context == null));
-                    }
-
-                    if (context == null) {
-
-                        context = new ClosureContext() {
-
-                            @Override
-                            public void closeContext() {
-
-                                outputContext.getEvaluationStack().popAllOperators();
-
-                                final double result = outputContext.popResult();
-
-                                if (log.isDebugEnabled()) {
-                                    log.debug("Default closureContext result: " + result);
-                                }
-
-                                outputContext.getEvaluationStack().getOperandStack().push(result);
-
-                            }
-
-                        };
-                    }
-
-                    outputContext.setEvaluationStack(outputContext.getEvaluationStack(), context);
-
+                if (log.isDebugEnabled()) {
+                    log.debug("ClosureContext is default: " + (context == null));
                 }
+
+                if (context == null) {
+
+                    context = () -> {
+
+                        outputContext.getEvaluationStack().popAllOperators();
+
+                        final double result = outputContext.popResult();
+
+                        if (log.isDebugEnabled()) {
+                            log.debug("Default closureContext result: " + result);
+                        }
+
+                        outputContext.getEvaluationStack().getOperandStack().push(result);
+
+                    };
+                }
+
+                outputContext.setEvaluationStack(outputContext.getEvaluationStack(), context);
+
             };
         }
 

@@ -26,7 +26,7 @@ public interface InputContext {
 
     /**
      * Check if there is input data to parse
-     * @return true if input data is finished
+     * @return false if input data is finished
      */
     boolean hasMoreToParse();
 }

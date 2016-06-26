@@ -1,13 +1,12 @@
 package com.javaclasses.calculator.context;
 
 /**
- * Context handles function executing information
+ * Handles function executing information
  */
 public interface ClosureContext {
 
     /**
-     * Executes current function result or result
-     * of expression in brackets
+     * Executes current function or expression in brackets
      */
     void closeContext();
 }

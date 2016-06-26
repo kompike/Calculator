@@ -32,7 +32,13 @@ public class MathExpressionOutputContext implements OutputContext {
 
     @Override
     public void leaveCurrentEvaluationStack() {
-        evaluationStack.getContext().closeContext();
+
+        if (evaluationStack.getParent() == null) {
+
+            throw new IllegalStateException("Opening bracket missing");
+        }
+
+        evaluationStack.getClosureContext().closeContext();
 
         final double result = evaluationStack.popResult();
 

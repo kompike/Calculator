@@ -20,8 +20,8 @@ public class EvaluationStack {
     private final Deque<Double> operandStack = new ArrayDeque<>();
     private final Deque<BinaryOperator> operatorStack = new ArrayDeque<>();
 
-    private EvaluationStack parent;
-    private ClosureContext context;
+    private final EvaluationStack parent;
+    private final ClosureContext context;
 
     public EvaluationStack() {
         parent = null;
@@ -37,7 +37,7 @@ public class EvaluationStack {
         return parent;
     }
 
-    public ClosureContext getContext() {
+    public ClosureContext getClosureContext() {
         return context;
     }
 
@@ -72,6 +72,7 @@ public class EvaluationStack {
      * @param operand Added operand
      */
     public void addOperand(Double operand) {
+
         operandStack.push(operand);
 
         if (log.isDebugEnabled()) {
@@ -124,14 +125,18 @@ public class EvaluationStack {
     }
 
     /**
-     * Pops remained operands from operator's stack
+     * Saves remained operands from operator's stack
      * to the list
      */
     public List<Double> popAllOperands() {
 
-        List<Double> operands = new ArrayList<>();
+        final List<Double> operands = new ArrayList<>();
 
         while (!operandStack.isEmpty()) {
+
+            if (log.isDebugEnabled()) {
+                log.debug("Next element to be added: " + operandStack.peek());
+            }
 
             operands.add(operandStack.pop());
         }
@@ -139,6 +144,9 @@ public class EvaluationStack {
         return operands;
     }
 
+    /**
+     * Get last operator from stack and executes it
+     */
     private void popOperator() {
 
         final BinaryOperator operator = operatorStack.pop();

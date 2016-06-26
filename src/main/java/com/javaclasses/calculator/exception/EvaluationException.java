@@ -18,9 +18,4 @@ public class EvaluationException extends Exception {
     public String getMessage() {
         return super.getMessage() + position;
     }
-
-    public int getPosition() {
-        return position;
-    }
-
 }

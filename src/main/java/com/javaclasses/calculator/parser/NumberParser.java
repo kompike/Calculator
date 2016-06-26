@@ -47,13 +47,8 @@ public class NumberParser implements Parser {
 
         inputContext.incrementPosition(result.length());
 
-        return new EvaluationContext() {
-            @Override
-            public void execute() {
-                outputContext.getEvaluationStack()
-                        .addOperand(Double.valueOf(result));
-            }
-        };
+        return () -> outputContext.getEvaluationStack()
+                .addOperand(Double.valueOf(result));
     }
 
 }

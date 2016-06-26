@@ -18,13 +18,7 @@ public class ArgumentsSeparatorParser implements Parser {
 
             inputContext.incrementPosition(1);
 
-            return new EvaluationContext() {
-                @Override
-                public void execute() {
-
-                    outputContext.getEvaluationStack().popAllOperators();
-                }
-            };
+            return () -> outputContext.getEvaluationStack().popAllOperators();
         }
 
         return null;

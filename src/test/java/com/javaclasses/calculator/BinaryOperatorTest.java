@@ -56,4 +56,10 @@ public class BinaryOperatorTest {
         Assert.assertEquals("Evaluated result does not equals expected number.",
                 33d, calculator.evaluate("2^(3*(4/(5-3)-1)+2)+1"), 0.0001d );
     }
+
+    @Test
+    public void testExpressionWithSpaces() throws EvaluationException {
+        Assert.assertEquals("Evaluated result does not equals expected number.",
+                22d, calculator.evaluate("2 * 3 +  2 ^4"), 0.0001d );
+    }
 }

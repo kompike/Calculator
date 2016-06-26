@@ -26,13 +26,7 @@ public class ClosingBracketParser implements Parser {
 
             inputContext.incrementPosition(1);
 
-            return new EvaluationContext() {
-                @Override
-                public void execute() {
-
-                    outputContext.leaveCurrentEvaluationStack();
-                }
-            };
+            return outputContext::leaveCurrentEvaluationStack;
         }
 
         return null;

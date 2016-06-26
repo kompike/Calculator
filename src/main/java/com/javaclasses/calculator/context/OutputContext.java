@@ -37,7 +37,8 @@ public interface OutputContext {
     void leaveCurrentEvaluationStack();
 
     /**
-     * Returns from current stack to parent stack
+     * Pop the last element from stack of operands
+     * @return Result of expression
      */
     double popResult();
 }

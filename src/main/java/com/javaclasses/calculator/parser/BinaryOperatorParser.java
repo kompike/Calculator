@@ -29,13 +29,8 @@ public class BinaryOperatorParser implements Parser {
                 final BinaryOperator operator = factory.getBinaryOperator(representation);
                 inputContext.incrementPosition(representation.length());
 
-                return new EvaluationContext() {
-                    @Override
-                    public void execute() {
-                        outputContext.getEvaluationStack()
-                                .addOperator(operator);
-                    }
-                };
+                return () -> outputContext.getEvaluationStack()
+                        .addOperator(operator);
             }
         }
 

@@ -10,7 +10,7 @@ public class MathExpressionInputContext implements InputContext {
     private int position;
 
     public MathExpressionInputContext(String expression) {
-        this.expression = expression;
+        this.expression = expression.replaceAll("\\s+", "");
     }
 
     @Override

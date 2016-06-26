@@ -1,6 +1,5 @@
 package com.javaclasses.calculator.parser;
 
-import com.javaclasses.calculator.context.ClosureContext;
 import com.javaclasses.calculator.context.EvaluationContext;
 import com.javaclasses.calculator.context.InputContext;
 import com.javaclasses.calculator.context.OutputContext;
@@ -34,6 +33,7 @@ public class FunctionParser implements Parser {
                 factory.getAllRepresentations();
 
         for (String representation : functionsRepresentations) {
+
             if (expression.startsWith(representation)) {
 
                 final Function function = factory.getFunction(representation);
@@ -44,36 +44,24 @@ public class FunctionParser implements Parser {
 
                 inputContext.incrementPosition(representation.length());
 
-                return new EvaluationContext() {
-                    @Override
-                    public void execute() {
+                return () -> outputContext.setClosureContext(() -> {
 
-                        outputContext.setClosureContext(new ClosureContext() {
+                    final List<Double> functionArguments =
+                            outputContext.getEvaluationStack().popAllOperands();
 
-                            @Override
-                            public void closeContext() {
-
-                                final List<Double> functionArguments =
-                                        outputContext.getEvaluationStack().popAllOperands();
-
-                                if (log.isDebugEnabled()) {
-                                    log.debug("Arguments list length: " + functionArguments.size());
-                                }
-
-                                final double result = function.execute(functionArguments.toArray
-                                        (new Double[functionArguments.size()]));
-
-                                if (log.isDebugEnabled()) {
-                                    log.debug("Closure result: " + result);
-                                }
-
-                                outputContext.getEvaluationStack().getOperandStack().push(result);
-                            }
-
-                        });
-
+                    if (log.isDebugEnabled()) {
+                        log.debug("Arguments list length: " + functionArguments.size());
                     }
-                };
+
+                    final double result = function.execute(functionArguments.toArray
+                            (new Double[functionArguments.size()]));
+
+                    if (log.isDebugEnabled()) {
+                        log.debug("Closure result: " + result);
+                    }
+
+                    outputContext.getEvaluationStack().getOperandStack().push(result);
+                });
             }
         }
 
