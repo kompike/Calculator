@@ -1,9 +1,9 @@
 package com.javaclasses.calculator.function;
 
 /**
- * Function implementation for math sum
+ * Function implementation for math minimum
  */
-public class SumFunction implements Function {
+public class MinFunction implements Function {
 
     @Override
     public double execute(Double... args) {
@@ -14,13 +14,16 @@ public class SumFunction implements Function {
                     "Function must have at least two arguments.");
         }
 
-        double sum = 0;
+        double min = args[0];
 
         for (double argument : args) {
-            sum += argument;
+
+            if (argument < min) {
+                min = argument;
+            }
         }
 
-        return sum;
+        return min;
     }
 
 }

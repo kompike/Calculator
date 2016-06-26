@@ -11,7 +11,9 @@ public class FunctionFactory {
 
     private final Map<String, Function> functions =
             new HashMap<String, Function>(){{
+
                 put("sum", new SumFunction());
+                put("min", new MinFunction());
             }};
 
     /**
