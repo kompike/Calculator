@@ -20,4 +20,10 @@ public class FunctionTest {
         Assert.assertEquals("Evaluated result does not equals expected number.",
                 28d, calculator.evaluate("min(100,28,31)"), 0.0001d );
     }
+
+    @Test
+    public void testMaxFunction() throws EvaluationException {
+        Assert.assertEquals("Evaluated result does not equals expected number.",
+                65d, calculator.evaluate("max(65,28,3,17)"), 0.0001d );
+    }
 }
