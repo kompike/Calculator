@@ -14,6 +14,7 @@ public class FunctionFactory {
 
                 put("sum", new SumFunction());
                 put("min", new MinFunction());
+                put("max", new MaxFunction());
             }};
 
     /**
