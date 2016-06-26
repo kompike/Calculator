@@ -23,7 +23,7 @@ public class TransitionMatrix {
                 put(NUMBER, EnumSet.of(BINARY_OPERATOR, CLOSING_BRACKET, ARGUMENTS_SEPARATOR, FINISH));
                 put(BINARY_OPERATOR, EnumSet.of(NUMBER, OPENING_BRACKET, FUNCTION));
                 put(OPENING_BRACKET, EnumSet.of(NUMBER, OPENING_BRACKET, CLOSING_BRACKET, FUNCTION));
-                put(CLOSING_BRACKET, EnumSet.of(BINARY_OPERATOR, ARGUMENTS_SEPARATOR, OPENING_BRACKET, FINISH));
+                put(CLOSING_BRACKET, EnumSet.of(BINARY_OPERATOR, ARGUMENTS_SEPARATOR, CLOSING_BRACKET, FINISH));
                 put(FUNCTION, EnumSet.of(OPENING_BRACKET));
                 put(ARGUMENTS_SEPARATOR, EnumSet.of(NUMBER, OPENING_BRACKET, FUNCTION));
                 put(FINISH, EnumSet.noneOf(State.class));
