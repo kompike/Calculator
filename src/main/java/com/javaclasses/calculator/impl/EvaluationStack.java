@@ -19,7 +19,8 @@ public class EvaluationStack {
     private final Logger log = LoggerFactory.getLogger(EvaluationStack.class);
 
     private final Deque<Double> operandStack = new ArrayDeque<>();
-    private final Deque<BinaryOperator> operatorStack = new ArrayDeque<>();
+    private final Deque<BinaryOperator> binaryOperatorStack = new ArrayDeque<>();
+    private final Deque<UnaryOperator> unaryOperatorStack = new ArrayDeque<>();
 
     private final EvaluationStack parent;
     private final ContextClosure context;
@@ -74,6 +75,8 @@ public class EvaluationStack {
                 log.debug("Expression result equals: " + operandStack.peek());
             }
 
+            popUnaryOperator();
+
             return operandStack.pop();
         }
     }
@@ -95,15 +98,15 @@ public class EvaluationStack {
      * Adds new operator to output context
      * @param operator Added operator
      */
-    public void addOperator(BinaryOperator operator) throws IncorrectExpressionException {
+    public void addBinaryOperator(BinaryOperator operator) throws IncorrectExpressionException {
 
         if (log.isDebugEnabled()) {
-            log.debug("Checking is operatorStack is empty: " + operatorStack.isEmpty());
+            log.debug("Checking is binaryOperatorStack is empty: " + binaryOperatorStack.isEmpty());
         }
 
-        if (!operatorStack.isEmpty()) {
+        if (!binaryOperatorStack.isEmpty()) {
 
-            final BinaryOperator lastOperator = operatorStack.peek();
+            final BinaryOperator lastOperator = binaryOperatorStack.peek();
 
             if (log.isDebugEnabled()) {
                 log.debug("Last operator returned from the stack: " +
@@ -112,27 +115,31 @@ public class EvaluationStack {
 
             if (lastOperator.compareTo(operator) > 0) {
 
-                popOperator();
+                popBinaryOperator();
 
             }
         }
+
+        popUnaryOperator();
 
         if (log.isDebugEnabled()) {
             log.debug("Operator added to the stack: " + operator.getClass().getSimpleName());
         }
 
-        operatorStack.push(operator);
+        binaryOperatorStack.push(operator);
     }
 
     /**
      * Pops remained operators from operator's stack
      */
-    public void popAllOperators() throws IncorrectExpressionException {
+    public void popAllBinaryOperators() throws IncorrectExpressionException {
 
-        while (!operatorStack.isEmpty()) {
+        while (!binaryOperatorStack.isEmpty()) {
 
-            popOperator();
+            popBinaryOperator();
         }
+
+        popUnaryOperator();
     }
 
     /**
@@ -155,12 +162,47 @@ public class EvaluationStack {
         return operands;
     }
 
+    public void addUnaryOperator(UnaryOperator operator) {
+
+        if (log.isDebugEnabled()) {
+            log.debug("Checking if unary operator is postfix: " +
+                    (operator.getNotation() == UnaryOperator.Notation.POSTFIX));
+        }
+
+        if (operator.getNotation() == UnaryOperator.Notation.POSTFIX) {
+
+            final double operand = operandStack.pop();
+
+            if (log.isDebugEnabled()) {
+                log.debug("Operand value before unary operator execution: " +
+                        (operand));
+            }
+
+            operandStack.push(operator.execute(operand));
+
+            if (log.isDebugEnabled()) {
+                log.debug("Operand value after unary operator execution: " +
+                        (operandStack.peek()));
+            }
+
+        } else {
+
+            if (log.isDebugEnabled()) {
+                log.debug("Unary operator added to the stack: " +
+                        (operator.getClass().getSimpleName()));
+            }
+
+            unaryOperatorStack.push(operator);
+        }
+
+    }
+
     /**
      * Get last operator from stack and executes it
      */
-    private void popOperator() throws IncorrectExpressionException {
+    private void popBinaryOperator() throws IncorrectExpressionException {
 
-        final BinaryOperator operator = operatorStack.pop();
+        final BinaryOperator operator = binaryOperatorStack.pop();
 
         if (log.isDebugEnabled()) {
             log.debug("Operator returned from the stack: " + operator.getClass().getSimpleName());
@@ -182,6 +224,40 @@ public class EvaluationStack {
 
         if (log.isDebugEnabled()) {
             log.debug("Operand executed and added to the stack: " + operandStack.peek());
+        }
+    }
+
+    private void popUnaryOperator() {
+
+        if (!unaryOperatorStack.isEmpty()) {
+
+            final UnaryOperator unaryOperator = unaryOperatorStack.pop();
+
+            if (log.isDebugEnabled()) {
+                log.debug("Unary operator poped from stack: " +
+                        (unaryOperator.getClass().getSimpleName()));
+            }
+
+            final Double operand = operandStack.pop();
+
+            if (log.isDebugEnabled()) {
+                log.debug("Operand poped from operands stack: " +
+                        (operand));
+            }
+
+            final double result = unaryOperator.execute(operand);
+
+            if (log.isDebugEnabled()) {
+                log.debug("Result after unary operator execution: " +
+                        (result));
+            }
+
+            operandStack.push(result);
+
+            if (log.isDebugEnabled()) {
+                log.debug("Unary operators stack size: " +
+                        (unaryOperatorStack.size()));
+            }
         }
     }
 }

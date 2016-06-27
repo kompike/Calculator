@@ -1,4 +1,4 @@
-package com.javaclasses.calculator.impl.operator;
+package com.javaclasses.calculator.impl.operator.binary;
 
 /**
  * Enum of binary operators priority

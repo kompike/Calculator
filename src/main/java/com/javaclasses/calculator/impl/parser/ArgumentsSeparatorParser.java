@@ -42,7 +42,7 @@ public class ArgumentsSeparatorParser implements Parser {
                             inputContext.getCurrentPosition(), inputContext.getCurrentPosition());
                 }
 
-                outputContext.getEvaluationStack().popAllOperators();
+                outputContext.getEvaluationStack().popAllBinaryOperators();
             };
         }
 

@@ -19,7 +19,7 @@ public class BracketsContextClosure implements ContextClosure {
     @Override
     public void closeContext(OutputContext outputContext) throws IncorrectExpressionException {
 
-        outputContext.getEvaluationStack().popAllOperators();
+        outputContext.getEvaluationStack().popAllBinaryOperators();
 
         final double result = outputContext.popResult();
 

@@ -1,4 +1,4 @@
-package com.javaclasses.calculator.impl.operator;
+package com.javaclasses.calculator.impl.operator.binary;
 
 import com.javaclasses.calculator.IncorrectExpressionException;
 import com.javaclasses.calculator.impl.BinaryOperator;

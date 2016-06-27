@@ -6,6 +6,6 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({BinaryOperatorTest.class, ExceptionTest.class,
         FunctionTest.class, MathExpressionCalculatorTest.class,
-        NumberEvaluationTest.class})
+        NumberEvaluationTest.class, UnaryOperatorTest.class})
 public class AllTests {
 }

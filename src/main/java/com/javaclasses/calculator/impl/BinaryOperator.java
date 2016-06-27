@@ -1,7 +1,7 @@
 package com.javaclasses.calculator.impl;
 
 import com.javaclasses.calculator.IncorrectExpressionException;
-import com.javaclasses.calculator.impl.operator.Priority;
+import com.javaclasses.calculator.impl.operator.binary.Priority;
 
 /**
  * Binary operator abstract instance with priority comparison

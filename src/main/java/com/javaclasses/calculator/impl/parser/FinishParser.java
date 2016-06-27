@@ -41,7 +41,7 @@ public class FinishParser implements Parser {
             } else {
 
                 outputContext.getEvaluationStack()
-                        .popAllOperators();
+                        .popAllBinaryOperators();
             }
         };
     }
