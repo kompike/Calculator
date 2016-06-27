@@ -41,7 +41,21 @@ public class OpeningBracketParser implements Parser {
 
                         outputContext.getEvaluationStack().popAllOperators();
 
-                        final double result = outputContext.popResult();
+                        final double result;
+
+                        if (log.isDebugEnabled()) {
+                            log.debug("Checking if context is in unary state: " +
+                                    outputContext.getEvaluationStack().getParent().isInUnaryState());
+                        }
+
+                        if (outputContext.getEvaluationStack().getParent().isInUnaryState()) {
+
+                            result = outputContext.popResult() * (-1);
+                            outputContext.getEvaluationStack().getParent().setUnaryState(false);
+                        } else {
+
+                            result = outputContext.popResult();
+                        }
 
                         if (log.isDebugEnabled()) {
                             log.debug("Default closureContext result: " + result);

@@ -23,6 +23,8 @@ public class EvaluationStack {
     private final EvaluationStack parent;
     private final ClosureContext context;
 
+    private boolean unaryState = false;
+
     public EvaluationStack() {
         parent = null;
         context = null;
@@ -43,6 +45,14 @@ public class EvaluationStack {
 
     public Deque<Double> getOperandStack() {
         return operandStack;
+    }
+
+    public boolean isInUnaryState() {
+        return unaryState;
+    }
+
+    public void setUnaryState(boolean unaryState) {
+        this.unaryState = unaryState;
     }
 
     /**

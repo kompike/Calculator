@@ -53,8 +53,23 @@ public class FunctionParser implements Parser {
                         log.debug("Arguments list length: " + functionArguments.size());
                     }
 
-                    final double result = function.execute(functionArguments.toArray
-                            (new Double[functionArguments.size()]));
+                    final double result;
+
+                    if (log.isDebugEnabled()) {
+                        log.debug("Checking if context is in unary state: " +
+                                outputContext.getEvaluationStack().getParent().isInUnaryState());
+                    }
+
+                    if (outputContext.getEvaluationStack().getParent().isInUnaryState()) {
+
+                        result = function.execute(functionArguments.toArray
+                                (new Double[functionArguments.size()])) * (-1);
+                        outputContext.getEvaluationStack().getParent().setUnaryState(false);
+                    } else {
+
+                        result = function.execute(functionArguments.toArray
+                                (new Double[functionArguments.size()]));
+                    }
 
                     if (log.isDebugEnabled()) {
                         log.debug("Closure result: " + result);

@@ -66,6 +66,18 @@ public class BinaryOperatorTest {
     @Test
     public void testUnaryOperator() throws EvaluationException {
         Assert.assertEquals("Evaluated result does not equals expected number.",
+                -2d, calculator.evaluate("-5+3"), 0.0001d );
+    }
+
+    @Test
+    public void testUnaryOperatorInFunction() throws EvaluationException {
+        Assert.assertEquals("Evaluated result does not equals expected number.",
+                7d, calculator.evaluate("-min(1,3,-7,5)"), 0.0001d );
+    }
+
+    @Test
+    public void testUnaryOperatorWithBrackets() throws EvaluationException {
+        Assert.assertEquals("Evaluated result does not equals expected number.",
                 -8d, calculator.evaluate("-(5+3)"), 0.0001d );
     }
 }

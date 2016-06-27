@@ -25,7 +25,7 @@ public class NumberParser implements Parser {
             log.debug("Parsing remaining expression: " + expression);
         }
 
-        final String numberPattern = "^[+-]?\\d+\\.?\\d*";
+        final String numberPattern = "^\\d+\\.?\\d*";
 
         final Pattern pattern = Pattern.compile(numberPattern);
         final Matcher matcher = pattern.matcher(expression);
@@ -39,7 +39,7 @@ public class NumberParser implements Parser {
             return null;
         }
 
-        final String result = matcher.group();
+        String result = matcher.group();
 
         if (log.isDebugEnabled()) {
             log.debug("Parsed result equals: " + result);
@@ -47,8 +47,30 @@ public class NumberParser implements Parser {
 
         inputContext.incrementPosition(result.length());
 
-        return () -> outputContext.getEvaluationStack()
-                .addOperand(Double.valueOf(result));
+        final double doubleResult;
+
+        if (log.isDebugEnabled()) {
+            log.debug("Checking if context is in unary state: " +
+                    outputContext.getEvaluationStack().isInUnaryState());
+        }
+
+        if (outputContext.getEvaluationStack().isInUnaryState()) {
+
+            doubleResult = Double.valueOf(result) * (-1);
+            outputContext.getEvaluationStack().setUnaryState(false);
+        } else {
+
+            doubleResult = Double.valueOf(result);
+        }
+
+        if (log.isDebugEnabled()) {
+            log.debug("Final result equals: " + doubleResult);
+        }
+
+        return () -> {
+            outputContext.getEvaluationStack()
+                    .addOperand(doubleResult);
+        };
     }
 
 }
