@@ -34,6 +34,18 @@ public class ExceptionTest {
         }
     }
 
+    @Test
+    public void testDivisionByZeroEvaluation() throws Exception {
+
+        try {
+            calculator.evaluate("2/(2-2)");
+            Assert.fail("ArithmeticException was not thrown");
+        } catch (ArithmeticException e) {
+            Assert.assertEquals("Caught exception message does not equals expected.",
+                    "Division by zero is prohibited", e.getMessage());
+        }
+    }
+
     @Test(expected = IllegalStateException.class)
     public void testEmptyBracketsEvaluation() throws Exception {
 

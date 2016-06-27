@@ -15,6 +15,12 @@ public class Divide extends BinaryOperator {
 
     @Override
     public double execute(double leftOperand, double rightOperand) {
+
+        if (rightOperand == 0.0) {
+
+            throw new ArithmeticException("Division by zero is prohibited");
+        }
+
         return leftOperand / rightOperand;
     }
 }
