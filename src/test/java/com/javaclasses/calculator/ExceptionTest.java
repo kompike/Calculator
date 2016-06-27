@@ -46,6 +46,18 @@ public class ExceptionTest {
         }
     }
 
+    @Test
+    public void testArgumentSeparatorOutsideFunctionEvaluation() throws Exception {
+
+        try {
+            calculator.evaluate("2,3");
+            Assert.fail("IncorrectExpressionException was not thrown");
+        } catch (IncorrectExpressionException e) {
+            Assert.assertEquals("Caught exception message does not equals expected.",
+                    "It is not allowed to use comma beyond function: 2", e.getMessage());
+        }
+    }
+
     @Test(expected = IncorrectExpressionException.class)
     public void testEmptyBracketsEvaluation() throws Exception {
 

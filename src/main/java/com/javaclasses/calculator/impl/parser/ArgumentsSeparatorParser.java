@@ -31,14 +31,15 @@ public class ArgumentsSeparatorParser implements Parser {
             return (OutputContext outputContext) -> {
 
                 if (log.isDebugEnabled()) {
-                    log.debug("Checking if we are inside function: " +
-                            outputContext.getEvaluationStack().getContextClosure().isInFunction());
+                    log.debug("Checking if closure context does not equals null: " +
+                            (outputContext.getEvaluationStack().getContextClosure() == null));
                 }
 
-                if (!outputContext.getEvaluationStack().getContextClosure().isInFunction()) {
+                if (outputContext.getEvaluationStack().getContextClosure() == null ||
+                        !outputContext.getEvaluationStack().getContextClosure().isInFunction()) {
 
-                    throw new IncorrectExpressionException("It is not allowed to use comma beyond function." +
-                            (inputContext.getCurrentPosition() - 1), inputContext.getCurrentPosition() - 1);
+                    throw new IncorrectExpressionException("It is not allowed to use comma beyond function: " +
+                            inputContext.getCurrentPosition(), inputContext.getCurrentPosition());
                 }
 
                 outputContext.getEvaluationStack().popAllOperators();
