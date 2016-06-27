@@ -25,7 +25,7 @@ public class NumberParser implements Parser {
             log.debug("Parsing remaining expression: " + expression);
         }
 
-        final String numberPattern = "^\\d+\\.?\\d*";
+        final String numberPattern = "^[+-]?\\d+\\.?\\d*";
 
         final Pattern pattern = Pattern.compile(numberPattern);
         final Matcher matcher = pattern.matcher(expression);
