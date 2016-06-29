@@ -45,7 +45,8 @@ public class FunctionParser implements Parser {
 
                 inputContext.incrementPosition(representation.length());
 
-                return (OutputContext outputContext) -> outputContext.setContextClosure(new FunctionContextClosure(function));
+                return (OutputContext outputContext) ->
+                        outputContext.setContextClosure(new FunctionContextClosure(function));
             }
         }
 

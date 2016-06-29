@@ -7,10 +7,6 @@ import com.javaclasses.calculator.impl.BinaryOperator;
  */
 public class Multiply extends BinaryOperator {
 
-    public Multiply() {
-        this(Priority.MEDIUM);
-    }
-
     public Multiply(Priority priority) {
         super(priority);
     }

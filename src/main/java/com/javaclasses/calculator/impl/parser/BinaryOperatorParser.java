@@ -1,10 +1,10 @@
 package com.javaclasses.calculator.impl.parser;
 
-import com.javaclasses.calculator.impl.Parser;
+import com.javaclasses.calculator.impl.BinaryOperator;
 import com.javaclasses.calculator.impl.EvaluationCommand;
+import com.javaclasses.calculator.impl.Parser;
 import com.javaclasses.calculator.impl.context.InputContext;
 import com.javaclasses.calculator.impl.context.OutputContext;
-import com.javaclasses.calculator.impl.BinaryOperator;
 import com.javaclasses.calculator.impl.operator.binary.BinaryOperatorFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +33,7 @@ public class BinaryOperatorParser implements Parser {
                 factory.getAllRepresentations();
 
         for (String representation : operatorsRepresentations) {
+
             if (expression.startsWith(representation)) {
 
                 final BinaryOperator operator = factory.getBinaryOperator(representation);
@@ -43,8 +44,8 @@ public class BinaryOperatorParser implements Parser {
 
                 inputContext.incrementPosition(representation.length());
 
-                return (OutputContext outputContext) -> outputContext.getEvaluationStack()
-                        .addBinaryOperator(operator);
+                return (OutputContext outputContext) ->
+                        outputContext.getEvaluationStack().pushBinaryOperator(operator);
             }
         }
 

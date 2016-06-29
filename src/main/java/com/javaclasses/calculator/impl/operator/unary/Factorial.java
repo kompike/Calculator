@@ -12,11 +12,11 @@ public class Factorial extends UnaryOperator {
     }
 
     @Override
-    public double execute(double arg) {
+    public double execute(double argument) {
 
         int result = 1;
 
-        for (double i = arg; i > 1; i--) {
+        for (double i = argument; i > 1; i--) {
 
             result *= i;
         }

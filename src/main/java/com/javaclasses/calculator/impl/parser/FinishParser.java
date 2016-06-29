@@ -27,8 +27,8 @@ public class FinishParser implements Parser {
                 }
 
                 throw new IncorrectExpressionException(
-                        "Input expression still has elements to parse after position: " +
-                                inputContext.getCurrentPosition());
+                        "Input expression still has elements to parse after position: ",
+                        inputContext.getCurrentPosition());
 
             } else if(outputContext.getEvaluationStack().getParent() != null) {
 
@@ -36,7 +36,8 @@ public class FinishParser implements Parser {
                     log.debug("Closing bracket missing");
                 }
 
-                throw new IncorrectExpressionException("Closing bracket missing");
+                throw new IncorrectExpressionException("Closing bracket missing at position:",
+                        inputContext.getCurrentPosition());
 
             } else {
 

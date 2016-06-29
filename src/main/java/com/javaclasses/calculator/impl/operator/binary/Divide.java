@@ -8,10 +8,6 @@ import com.javaclasses.calculator.impl.BinaryOperator;
  */
 public class Divide extends BinaryOperator {
 
-    public Divide() {
-        this(Priority.MEDIUM);
-    }
-
     public Divide(Priority priority) {
         super(priority);
     }
@@ -22,7 +18,7 @@ public class Divide extends BinaryOperator {
 
         if (rightOperand == 0.0) {
 
-            throw new IncorrectExpressionException("Division by zero is prohibited");
+            throw new ArithmeticException("Division by zero is prohibited.");
         }
 
         return leftOperand / rightOperand;

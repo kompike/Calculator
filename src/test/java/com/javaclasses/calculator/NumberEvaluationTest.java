@@ -31,7 +31,7 @@ public class NumberEvaluationTest {
             Assert.fail("IncorrectExpressionException was not thrown");
         } catch (IncorrectExpressionException e) {
             Assert.assertEquals("Caught exception message does not equals expected.",
-                    "Expression contains incorrect symbol after position: 0", e.getMessage());
+                    "Inappropriate element at position: 0", e.getMessage());
         }
     }
 }

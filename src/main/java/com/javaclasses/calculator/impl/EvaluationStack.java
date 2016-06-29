@@ -5,10 +5,9 @@ import com.javaclasses.calculator.impl.context.ContextClosure;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
+
+import static com.javaclasses.calculator.impl.UnaryOperator.Notation.POSTFIX;
 
 /**
  * Operates operand and operator stacks for keeping
@@ -49,45 +48,24 @@ public class EvaluationStack {
 
     /**
      * Pop the last element from stack of operands
+     *
      * @return Result of expression
      */
     public double popResult() throws IncorrectExpressionException {
 
-        if (operandStack.size() != 1) {
-
-            final String message;
-
-            if (operandStack.size() > 1) {
-                message = "There is more than one operand left.";
-            } else {
-                message = "No operands left";
-            }
-
-            if (log.isErrorEnabled()) {
-                log.error(message);
-            }
-
-            throw new IncorrectExpressionException(message);
-
-        } else {
-
-            if (log.isDebugEnabled()) {
-                log.debug("Expression result equals: " + operandStack.peek());
-            }
-
-            popUnaryOperator();
-
-            return operandStack.pop();
-        }
+        return operandStack.pop();
     }
 
     /**
      * Adds new operand to output context
+     *
      * @param operand Added operand
      */
-    public void addOperand(Double operand) {
+    public void pushOperand(Double operand) {
 
         operandStack.push(operand);
+
+        popUnaryOperator();
 
         if (log.isDebugEnabled()) {
             log.debug("Operand successfully added to the stack: " + operand);
@@ -98,7 +76,7 @@ public class EvaluationStack {
      * Adds new operator to output context
      * @param operator Added operator
      */
-    public void addBinaryOperator(BinaryOperator operator) throws IncorrectExpressionException {
+    public void pushBinaryOperator(BinaryOperator operator) throws IncorrectExpressionException {
 
         if (log.isDebugEnabled()) {
             log.debug("Checking is binaryOperatorStack is empty: " + binaryOperatorStack.isEmpty());
@@ -120,8 +98,6 @@ public class EvaluationStack {
             }
         }
 
-        popUnaryOperator();
-
         if (log.isDebugEnabled()) {
             log.debug("Operator added to the stack: " + operator.getClass().getSimpleName());
         }
@@ -138,13 +114,13 @@ public class EvaluationStack {
 
             popBinaryOperator();
         }
-
-        popUnaryOperator();
     }
 
     /**
      * Saves remained operands from operator's stack
      * to the list
+     *
+     * @return List of operands
      */
     public List<Double> popAllOperands() {
 
@@ -162,14 +138,29 @@ public class EvaluationStack {
         return operands;
     }
 
-    public void addUnaryOperator(UnaryOperator operator) {
+    /**
+     * Saves remained operands to the list, but not removes them from operator's stack
+     *
+     * @return List of operands
+     */
+    public List<Double> peekAllOperands() {
+
+        if (!operandStack.isEmpty()) {
+
+            return Arrays.asList(operandStack.toArray(new Double[operandStack.size()]));
+        }
+
+        return Collections.emptyList();
+    }
+
+    public void pushUnaryOperator(UnaryOperator operator) {
 
         if (log.isDebugEnabled()) {
             log.debug("Checking if unary operator is postfix: " +
-                    (operator.getNotation() == UnaryOperator.Notation.POSTFIX));
+                    (operator.getNotation() == POSTFIX));
         }
 
-        if (operator.getNotation() == UnaryOperator.Notation.POSTFIX) {
+        if (operator.getNotation() == POSTFIX) {
 
             final double operand = operandStack.pop();
 
@@ -178,7 +169,7 @@ public class EvaluationStack {
                         (operand));
             }
 
-            operandStack.push(operator.execute(operand));
+            pushOperand(operator.execute(operand));
 
             if (log.isDebugEnabled()) {
                 log.debug("Operand value after unary operator execution: " +
@@ -194,7 +185,6 @@ public class EvaluationStack {
 
             unaryOperatorStack.push(operator);
         }
-
     }
 
     /**
@@ -220,7 +210,7 @@ public class EvaluationStack {
             log.debug("Left operand returned from the stack: " + leftOperand);
         }
 
-        operandStack.push(operator.execute(leftOperand, rightOperand));
+        pushOperand(operator.execute(leftOperand, rightOperand));
 
         if (log.isDebugEnabled()) {
             log.debug("Operand executed and added to the stack: " + operandStack.peek());

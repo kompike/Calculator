@@ -43,11 +43,6 @@ public class MathExpressionOutputContext implements OutputContext {
     @Override
     public void leaveCurrentEvaluationStack() throws IncorrectExpressionException {
 
-        if (evaluationStack.getParent() == null) {
-
-            throw new IncorrectExpressionException("Opening bracket missing");
-        }
-
         if (log.isDebugEnabled()) {
             log.debug("Leaving current evaluation stack...");
         }
@@ -58,7 +53,7 @@ public class MathExpressionOutputContext implements OutputContext {
 
         evaluationStack = evaluationStack.getParent();
 
-        evaluationStack.getOperandStack().push(result);
+        evaluationStack.pushOperand(result);
 
         if (log.isDebugEnabled()) {
             log.debug("Evaluation stack changed");

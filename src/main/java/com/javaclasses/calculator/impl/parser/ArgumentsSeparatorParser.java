@@ -38,8 +38,8 @@ public class ArgumentsSeparatorParser implements Parser {
                 if (outputContext.getEvaluationStack().getContextClosure() == null ||
                         !outputContext.getEvaluationStack().getContextClosure().isInFunction()) {
 
-                    throw new IncorrectExpressionException("It is not allowed to use comma beyond function: " +
-                            inputContext.getCurrentPosition(), inputContext.getCurrentPosition());
+                    throw new IncorrectExpressionException("It is not allowed to use comma beyond function:",
+                            inputContext.getCurrentPosition());
                 }
 
                 outputContext.getEvaluationStack().popAllBinaryOperators();

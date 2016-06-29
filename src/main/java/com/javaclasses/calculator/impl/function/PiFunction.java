@@ -9,13 +9,17 @@ import com.javaclasses.calculator.impl.Function;
 public class PiFunction implements Function {
 
     @Override
+    public int getMinimumArgumentsNumber() {
+        return 0;
+    }
+
+    @Override
+    public int getMaximumArgumentsNumber() {
+        return 0;
+    }
+
+    @Override
     public double execute(Double... args) throws IncorrectExpressionException {
-
-        if (args.length != 0) {
-
-            throw new IncorrectExpressionException(
-                    "Function must have no arguments.");
-        }
 
         return Math.PI;
     }

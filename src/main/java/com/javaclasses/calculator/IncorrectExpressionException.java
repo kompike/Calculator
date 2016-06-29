@@ -7,14 +7,14 @@ package com.javaclasses.calculator;
 
 public class IncorrectExpressionException extends Exception {
 
-    private int position;
-
-    public IncorrectExpressionException(String message) {
-        super(message);
-    }
+    private final int position;
 
     public IncorrectExpressionException(String message, int position) {
-        super(message);
+        super(message + " " + position);
         this.position = position;
+    }
+
+    public int getPosition() {
+        return position;
     }
 }

@@ -12,8 +12,9 @@ public class UnaryPlusOperator extends UnaryOperator {
     }
 
     @Override
-    public double execute(double arg) {
-        return arg;
+    public double execute(double argument) {
+
+        return argument;
     }
 
 }

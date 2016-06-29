@@ -12,8 +12,9 @@ public class UnaryMinusOperator extends UnaryOperator {
     }
 
     @Override
-    public double execute(double arg) {
-        return arg * (-1);
+    public double execute(double argument) {
+
+        return argument * (-1);
     }
 
 }

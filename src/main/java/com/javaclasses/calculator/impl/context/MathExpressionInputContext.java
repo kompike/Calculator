@@ -15,7 +15,7 @@ public class MathExpressionInputContext implements InputContext {
     private int position;
 
     public MathExpressionInputContext(String expression) {
-        this.expression = expression.replaceAll("\\s+", "");
+        this.expression = expression;
     }
 
     @Override
@@ -35,6 +35,20 @@ public class MathExpressionInputContext implements InputContext {
 
     @Override
     public String getRemainingExpression() {
+
+        if (hasMoreToParse()) {
+
+            while (expression.charAt(position) == ' ') {
+
+                if (log.isDebugEnabled()) {
+                    log.debug("Space found, position incremented by 1.");
+                }
+
+                position += 1;
+            }
+
+        }
+
         return expression.substring(position);
     }
 

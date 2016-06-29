@@ -6,6 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import static com.javaclasses.calculator.impl.operator.binary.Priority.HIGH;
+import static com.javaclasses.calculator.impl.operator.binary.Priority.LOW;
+import static com.javaclasses.calculator.impl.operator.binary.Priority.MEDIUM;
+
 /**
  * Factory of available binary operators
  */
@@ -14,11 +18,11 @@ public class BinaryOperatorFactory {
     private final Map<String, BinaryOperator> operators =
             new HashMap<String, BinaryOperator>(){{
 
-                put("+", new Plus());
-                put("-", new Minus());
-                put("*", new Multiply());
-                put("/", new Divide());
-                put("^", new Power());
+                put("+", new Plus(LOW));
+                put("-", new Minus(LOW));
+                put("*", new Multiply(MEDIUM));
+                put("/", new Divide(MEDIUM));
+                put("^", new Power(HIGH));
 
             }};
 

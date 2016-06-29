@@ -7,10 +7,6 @@ import com.javaclasses.calculator.impl.BinaryOperator;
  */
 public class Power extends BinaryOperator {
 
-    public Power() {
-        this(Priority.HIGH);
-    }
-
     public Power(Priority priority) {
         super(priority);
     }

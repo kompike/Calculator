@@ -7,10 +7,6 @@ import com.javaclasses.calculator.impl.BinaryOperator;
  */
 public class Minus extends BinaryOperator {
 
-    public Minus() {
-        this(Priority.LOW);
-    }
-
     public Minus(Priority priority) {
         super(priority);
     }

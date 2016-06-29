@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import static com.javaclasses.calculator.impl.UnaryOperator.Notation.*;
+import static com.javaclasses.calculator.impl.UnaryOperator.Notation.PREFIX;
+
 /**
  * Factory of unary operators
  */
@@ -14,9 +17,9 @@ public class UnaryOperatorFactory {
     private final Map<String, UnaryOperator> operators =
             new HashMap<String, UnaryOperator>(){{
 
-                put("+", new UnaryPlusOperator(UnaryOperator.Notation.PREFIX));
-                put("-", new UnaryMinusOperator(UnaryOperator.Notation.PREFIX));
-                put("!", new Factorial(UnaryOperator.Notation.POSTFIX));
+                put("+", new UnaryPlusOperator(PREFIX));
+                put("-", new UnaryMinusOperator(PREFIX));
+                put("!", new Factorial(POSTFIX));
             }};
 
     /**

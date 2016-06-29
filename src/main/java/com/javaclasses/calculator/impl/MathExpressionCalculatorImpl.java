@@ -33,7 +33,7 @@ public class MathExpressionCalculatorImpl extends AbstractFiniteStateMachine
     protected void deadlock(InputContext inputContext, OutputContext outputContext)
             throws IncorrectExpressionException {
 
-        throw new IncorrectExpressionException("Expression contains incorrect symbol after position: " +
-                inputContext.getCurrentPosition(), inputContext.getCurrentPosition());
+        throw new IncorrectExpressionException("Inappropriate element at position:",
+                inputContext.getCurrentPosition());
     }
 }

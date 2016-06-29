@@ -48,10 +48,8 @@ public class NumberParser implements Parser {
 
         inputContext.incrementPosition(result.length());
 
-        return (OutputContext outputContext) -> {
-            outputContext.getEvaluationStack()
-                    .addOperand(Double.valueOf(result));
-        };
+        return (OutputContext outputContext) -> outputContext.getEvaluationStack()
+                .pushOperand(Double.valueOf(result));
     }
 
 }

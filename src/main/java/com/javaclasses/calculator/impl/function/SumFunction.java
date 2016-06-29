@@ -9,13 +9,17 @@ import com.javaclasses.calculator.impl.Function;
 public class SumFunction implements Function {
 
     @Override
+    public int getMinimumArgumentsNumber() {
+        return 2;
+    }
+
+    @Override
+    public int getMaximumArgumentsNumber() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
     public double execute(Double... args) throws IncorrectExpressionException {
-
-        if (args == null || args.length < 2) {
-
-            throw new IncorrectExpressionException(
-                    "Function must have at least two arguments.");
-        }
 
         double sum = 0;
 

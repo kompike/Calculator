@@ -26,6 +26,11 @@ public class FunctionContextClosure implements ContextClosure {
     }
 
     @Override
+    public Function getFunction() {
+        return function;
+    }
+
+    @Override
     public void closeContext(OutputContext outputContext) throws IncorrectExpressionException {
 
         final List<Double> functionArguments =
@@ -42,7 +47,7 @@ public class FunctionContextClosure implements ContextClosure {
             log.debug("Closure result: " + result);
         }
 
-        outputContext.getEvaluationStack().getOperandStack().push(result);
+        outputContext.getEvaluationStack().pushOperand(result);
 
     }
 

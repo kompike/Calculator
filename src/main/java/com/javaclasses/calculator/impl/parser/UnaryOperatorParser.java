@@ -1,5 +1,6 @@
 package com.javaclasses.calculator.impl.parser;
 
+import com.javaclasses.calculator.IncorrectExpressionException;
 import com.javaclasses.calculator.impl.EvaluationCommand;
 import com.javaclasses.calculator.impl.Parser;
 import com.javaclasses.calculator.impl.UnaryOperator;
@@ -10,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Set;
+
+import static com.javaclasses.calculator.impl.UnaryOperator.Notation.POSTFIX;
 
 /**
  * Parser implementation for unary operator
@@ -43,8 +46,18 @@ public class UnaryOperatorParser implements Parser {
 
                 inputContext.incrementPosition(representation.length());
 
-                return (OutputContext outputContext) -> outputContext.getEvaluationStack()
-                        .addUnaryOperator(operator);
+                return (OutputContext outputContext) -> {
+
+                    if (operator.getNotation() == POSTFIX &&
+                            outputContext.getEvaluationStack().getOperandStack().isEmpty()) {
+
+                        throw new IncorrectExpressionException("Postfix unary operator " +
+                                operator.getClass().getSimpleName() +  " used before number at position:",
+                                inputContext.getCurrentPosition());
+                    }
+
+                    outputContext.getEvaluationStack().pushUnaryOperator(operator);
+                };
             }
         }
 
