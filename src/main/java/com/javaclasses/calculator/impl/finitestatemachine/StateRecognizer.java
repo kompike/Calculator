@@ -30,7 +30,8 @@ public class StateRecognizer {
         put(CLOSING_BRACKET, new ClosingBracketParser());
         put(FUNCTION, new FunctionParser());
         put(ARGUMENTS_SEPARATOR, new ArgumentsSeparatorParser());
-        put(UNARY_OPERATOR, new UnaryOperatorParser());
+        put(PREFIX_UNARY_OPERATOR, new UnaryOperatorParser());
+        put(POSTFIX_UNARY_OPERATOR, new UnaryOperatorParser());
         put(FINISH, new FinishParser());
     }};
 
@@ -42,7 +43,8 @@ public class StateRecognizer {
      * @return If given state is accepted
      */
     public boolean accept(State state,
-                          InputContext inputContext, OutputContext outputContext) throws IncorrectExpressionException {
+                          InputContext inputContext, OutputContext outputContext)
+            throws IncorrectExpressionException {
 
         final EvaluationCommand context = stateParsers.get(state).parse(inputContext);
 
