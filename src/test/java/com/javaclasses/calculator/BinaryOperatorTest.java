@@ -123,4 +123,10 @@ public class BinaryOperatorTest {
             assertEquals("Wrong position of redundant closing bracket.", 14,  e.getPosition());
         }
     }
+
+    @Test
+    public void testMultiplePowerOperatorEvaluation() throws IncorrectExpressionException {
+        assertEquals("Power operator evaluation does not work properly.",
+                512d, calculator.evaluate("2^3^2"), delta );
+    }
 }
